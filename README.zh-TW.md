@@ -8,7 +8,7 @@
 
 幫你掛 Twitch 的 Chrome 擴充功能：**喜歡的實況主一開台就自動切過去；他沒開台時，自動找同遊戲分類裡有開掉寶的頻道來看；掉寶和頻道點數全部自動領。** 開著放背景就好，不用一直盯著畫面。
 
-<img src="docs/popup-zh-TW.png" alt="設定面板截圖" width="320" align="right">
+<p align="center"><img src="docs/popup-zh-TW.png" alt="設定面板截圖" width="300"></p>
 
 ---
 

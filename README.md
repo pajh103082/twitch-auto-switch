@@ -7,9 +7,9 @@
 ![Languages](https://img.shields.io/badge/UI-English%20%7C%20繁體中文-555)
 [![Latest release](https://img.shields.io/github/v/release/pajh103082/twitch-auto-switch)](../../releases/latest)
 
-<img src="docs/popup-en.png" alt="Extension popup screenshot" width="320" align="right">
-
 A Chrome extension for idling on Twitch. **When your favorite streamer goes live, it switches to their stream. When they're offline, it finds a Drops-enabled stream in the game category you choose. It claims Drops and channel points for you.** Leave it running in the background; you don't have to watch the screen.
+
+<p align="center"><img src="docs/popup-en.png" alt="Extension popup screenshot" width="300"></p>
 
 ---
 
