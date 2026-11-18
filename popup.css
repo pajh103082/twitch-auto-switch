@@ -1,0 +1,227 @@
+body {
+  width: 360px;
+  font-family: "Segoe UI", "Microsoft JhengHei", sans-serif;
+  font-size: 14px; /* 等級 3（中）——其他元素都用 em 相對這個基準縮放 */
+  padding: 14px;
+  margin: 0;
+  color: #1f1f23;
+}
+
+/* 文字大小 5 段式：只要換 body 的 font-size，下面全部用 em 寫的元素都會等比例縮放。
+   寬度也跟著放大一點，避免字放大後版面被擠得太窄。 */
+body[data-font-size="1"] {
+  font-size: 12px;
+  width: 340px;
+}
+body[data-font-size="2"] {
+  font-size: 13px;
+  width: 350px;
+}
+body[data-font-size="3"] {
+  font-size: 14px;
+  width: 360px;
+}
+body[data-font-size="4"] {
+  font-size: 16px;
+  width: 380px;
+}
+body[data-font-size="5"] {
+  font-size: 18px;
+  width: 400px;
+}
+
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: 1.2em;
+  margin: 0;
+}
+
+.sponsor-link {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.95em;
+  font-weight: 600;
+  text-decoration: none;
+  line-height: 1;
+  padding: 0.45em 0.7em;
+  border-radius: 999px;
+  background: #9147ff;
+  color: #fff;
+}
+
+.sponsor-link:hover {
+  background: #772ce8;
+}
+
+h2 {
+  font-size: 1.05em;
+  margin: 0;
+  color: #53535f;
+  display: inline;
+}
+
+.display-settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 1em;
+}
+
+.display-settings-row select {
+  flex: 0 0 auto;
+  width: auto;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px 8px;
+  margin-bottom: 8px;
+  font-size: 1em;
+}
+
+.label {
+  color: #53535f;
+  flex-shrink: 0;
+}
+
+input[type="text"],
+select {
+  flex: 1;
+  min-width: 0;
+  padding: 0.3em 0.45em;
+  font-size: 1em;
+}
+
+/* 數字輸入框內容通常只有幾位數，但不能讓長標籤把它擠到看不清楚，
+   固定給一個夠用的最小寬度（用 em 寫，字級放大時也會跟著變寬），
+   不會被同一列的標籤文字擠壓。 */
+input[type="number"] {
+  flex: 0 0 auto;
+  width: 5.5em;
+  min-width: 5.5em;
+  padding: 0.3em 0.45em;
+  font-size: 1em;
+}
+
+.status-box,
+.settings-box,
+.log-box {
+  border: 1px solid #e3e3e6;
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+}
+
+button {
+  width: 100%;
+  padding: 0.6em;
+  background: #9147ff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1em;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+button:hover {
+  background: #772ce8;
+}
+
+#logList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 160px;
+  overflow-y: auto;
+  font-size: 0.93em;
+  color: #53535f;
+}
+
+#logList li {
+  padding: 2px 0;
+  border-bottom: 1px dashed #eee;
+}
+
+.guide-list {
+  margin: 0;
+  padding-left: 1.4em;
+  font-size: 0.93em;
+  color: #53535f;
+}
+
+.guide-list li {
+  padding: 3px 0;
+}
+
+#errorRow span:last-child {
+  color: #d0021b;
+}
+
+.toggle-btn {
+  width: 100%;
+  padding: 0.85em;
+  font-size: 1.15em;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.toggle-btn.state-on {
+  background: #00b26e;
+}
+
+.toggle-btn.state-on:hover {
+  background: #00975d;
+}
+
+.toggle-btn.state-off {
+  background: #6b6b74;
+}
+
+.toggle-btn.state-off:hover {
+  background: #57575f;
+}
+
+summary {
+  cursor: pointer;
+  list-style: revert;
+  user-select: none;
+}
+
+summary::marker {
+  color: #9147ff;
+}
+
+summary:hover h2 {
+  color: #1f1f23;
+}
+
+details[open] summary {
+  margin-bottom: 8px;
+}
+
+/* details 用到跟原本 section 一樣的 .settings-box/.log-box class，
+   這裡只補上 <details> 本身預設會有的一些瀏覽器樣式重置 */
+details.settings-box,
+details.log-box {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}

@@ -1,0 +1,84 @@
+{
+  "manifest_version": 3,
+  "name": "__MSG_extName__",
+  "version": "1.0.0",
+  "minimum_chrome_version": "111",
+  "default_locale": "zh_TW",
+  "description": "__MSG_extDescription__",
+  "permissions": ["storage", "alarms", "tabs", "notifications"],
+  "host_permissions": [
+    "https://gql.twitch.tv/*",
+    "https://www.twitch.tv/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "icon/icon16.png",
+    "48": "icon/icon48.png",
+    "128": "icon/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "__MSG_extName__",
+    "default_icon": {
+      "16": "icon/icon16.png",
+      "48": "icon/icon48.png",
+      "128": "icon/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.twitch.tv/*"],
+      "js": ["page-keep-active.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["https://www.twitch.tv/*"],
+      "js": ["content-keep-active-gate.js"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["https://www.twitch.tv/*"],
+      "exclude_matches": [
+        "https://www.twitch.tv/directory/*",
+        "https://www.twitch.tv/drops/*"
+      ],
+      "js": ["content-gate-prefs.js"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["https://www.twitch.tv/directory/category/*"],
+      "js": ["content-directory.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://www.twitch.tv/drops/inventory*"],
+      "js": ["content-inventory-claim.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://www.twitch.tv/*"],
+      "exclude_matches": [
+        "https://www.twitch.tv/directory/*",
+        "https://www.twitch.tv/drops/*"
+      ],
+      "js": ["content-claim.js", "content-player-watchdog.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://www.twitch.tv/*"],
+      "exclude_matches": ["https://www.twitch.tv/directory/*"],
+      "js": ["page-integrity-bridge.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["https://www.twitch.tv/*"],
+      "exclude_matches": ["https://www.twitch.tv/directory/*"],
+      "js": ["content-gql-claim.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

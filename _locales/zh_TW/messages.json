@@ -1,0 +1,229 @@
+{
+  "extName": { "message": "Twitch 自動轉台工具" },
+  "extDescription": { "message": "偵測指定實況主是否上線並自動切換分頁；離線時改看指定分類中有開啟掉寶的實況主，皆無則閒置；並自動領取掉寶獎勵。" },
+
+  "guideHeading": { "message": "使用說明" },
+  "guideStep1": { "message": "在「設定」填入「目標實況主」與「分類 slug」，換成你想看的實況主與遊戲分類（分類 slug 就是 twitch.tv/directory/category/ 後面那段文字），再按「儲存設定」。" },
+  "guideStep2": { "message": "點擊最上方的按鈕啟用／停止整個工具；啟用後它會自動幫你切到正確的頻道。" },
+  "guideStep3": { "message": "掉寶與頻道點數獎勵會自動在背景領取，不需要手動點擊任何按鈕。" },
+  "guideStep4": { "message": "如果畫面卡住或播放器出錯，會自動偵測並重新整理分頁，不需要自己手動重新整理。" },
+  "guideStep5": { "message": "不想收到系統通知的話，可以在「桌面通知」區塊裡關閉。" },
+  "guideStep6": { "message": "覺得字太小看不清楚，可以用最上面的「文字大小」下拉選單調整。" },
+
+  "statusLabel": { "message": "狀態" },
+  "currentChannelLabel": { "message": "目前頻道" },
+  "lastCheckLabel": { "message": "上次檢查" },
+  "errorLabel": { "message": "錯誤" },
+  "checkNowBtn": { "message": "立即檢查" },
+
+  "notificationsHeading": { "message": "桌面通知" },
+  "enableNotificationsLabel": { "message": "啟用桌面通知" },
+  "enableNotificationsHint": { "message": "切台、領獎、錯誤才通知（即時生效）；自動重整不通知" },
+  "saveNotificationsBtn": { "message": "儲存通知設定" },
+
+  "settingsHeading": { "message": "設定" },
+  "targetChannelLabel": { "message": "目標實況主" },
+  "categorySlugLabel": { "message": "分類 slug" },
+  "dropsTagTextsLabel": { "message": "掉寶標籤文字" },
+  "commaSeparatedHint": { "message": "逗號分隔，符合任一即可" },
+  "intervalSecondsLabel": { "message": "檢查間隔（秒）" },
+  "dropsRecheckIntervalLabel": { "message": "掉寶條件重新確認間隔（分鐘）" },
+  "dropsRecheckIntervalHint": { "message": "備援頻道還在直播時，隔多久重新確認一次掉寶還有沒有開" },
+  "focusTabLabel": { "message": "切台時聚焦分頁" },
+  "adoptExistingTabLabel": { "message": "接管現有 Twitch 分頁" },
+  "adoptExistingTabHint": { "message": "避免另開新分頁造成重複" },
+  "idleActionLabel": { "message": "閒置時行為" },
+  "idleActionNone": { "message": "維持現狀" },
+  "idleActionHome": { "message": "回到 Twitch 首頁" },
+  "saveBtn": { "message": "儲存設定" },
+
+  "claimHeading": { "message": "自動領取獎勵（掉寶／頻道點數）" },
+  "autoClaimDropsLabel": { "message": "啟用自動領取" },
+  "claimButtonTextsLabel": { "message": "領取按鈕文字" },
+  "inventoryCheckIntervalLabel": { "message": "庫存檢查間隔（分鐘）" },
+  "claimChannelPointsLabel": { "message": "領取頻道點數（忠誠點數）獎勵寶箱" },
+  "claimChannelPointsHint": { "message": "透過私有 API 直接領取，非模擬點擊" },
+  "saveClaimBtn": { "message": "儲存領取設定" },
+  "checkInventoryNowBtn": { "message": "立即檢查掉寶庫存" },
+  "checkingBtnText": { "message": "檢查中..." },
+
+  "watchdogHeading": { "message": "播放器自動重新載入" },
+  "autoReloadLabel": { "message": "啟用自動重新載入" },
+  "playerStallSecondsLabel": { "message": "畫面卡住判定秒數" },
+  "reloadButtonTextsLabel": { "message": "重試/重新載入按鈕文字" },
+  "saveWatchdogBtn": { "message": "儲存播放器設定" },
+
+  "claimHistoryHeading": { "message": "獎勵領取紀錄" },
+  "totalPointsLabel": { "message": "累計已領取忠誠點數" },
+  "clearHistoryBtn": { "message": "清除領取紀錄" },
+  "activityLogHeading": { "message": "活動紀錄" },
+  "sponsorLinkTitle": { "message": "贊助支持這個專案" },
+  "sponsorLinkText": { "message": "贊助" },
+  "fontSizeLabel": { "message": "文字大小" },
+  "fontSizeXs": { "message": "最小" },
+  "fontSizeSm": { "message": "小" },
+  "fontSizeMd": { "message": "中" },
+  "fontSizeLg": { "message": "大" },
+  "fontSizeXl": { "message": "最大" },
+
+  "statusIdle": { "message": "閒置中" },
+  "statusTargetLive": { "message": "目標實況主上線" },
+  "statusFallbackLive": { "message": "改看分類內掉寶頻道" },
+  "statusChecking": { "message": "檢查中..." },
+  "statusError": { "message": "發生錯誤" },
+  "statusDisabled": { "message": "已停用" },
+  "claimTypeChannelPoints": { "message": "頻道點數" },
+  "claimTypeDrop": { "message": "掉寶" },
+  "claimTypeDropInventory": { "message": "掉寶（庫存補領）" },
+  "toggleOnText": { "message": "▶ 執行中（點擊停止）" },
+  "toggleOffText": { "message": "⏸ 已停止（點擊啟動）" },
+  "savedText": { "message": "已儲存" },
+
+  "errGqlHttpFailed": {
+    "message": "GQL 查詢失敗 (HTTP $STATUS$)",
+    "placeholders": { "status": { "content": "$1" } }
+  },
+  "errChannelNotFound": {
+    "message": "找不到實況主「$LOGIN$」，請確認頻道名稱是否正確",
+    "placeholders": { "login": { "content": "$1" } }
+  },
+  "errCategoryNotFound": {
+    "message": "找不到分類「$SLUG$」，請確認分類 slug 是否正確",
+    "placeholders": { "slug": { "content": "$1" } }
+  },
+  "errNoResponse": { "message": "沒有收到回應" },
+  "defaultDropRewardName": { "message": "掉寶獎勵" },
+  "notifyClaimTitle": { "message": "Twitch 自動領取" },
+  "msgApiInventoryClaimed": {
+    "message": "透過 API 檢查掉寶庫存：已自動領取 $COUNT$ 個獎勵",
+    "placeholders": { "count": { "content": "$1" } }
+  },
+  "msgChannelPointsApiQueryFailed": {
+    "message": "頻道點數 API 查詢失敗：$ERROR$",
+    "placeholders": { "error": { "content": "$1" } }
+  },
+  "msgDomInventoryClaimed": {
+    "message": "（備援）定期檢查掉寶庫存：已自動領取 $COUNT$ 個獎勵",
+    "placeholders": { "count": { "content": "$1" } }
+  },
+  "msgInventoryCheckFailed": {
+    "message": "檢查掉寶庫存失敗：$ERROR$",
+    "placeholders": { "error": { "content": "$1" } }
+  },
+  "msgApiClaimFallback": {
+    "message": "私有 API 領取失敗（$REASON$），改用備援方式掃描庫存頁面",
+    "placeholders": { "reason": { "content": "$1" } }
+  },
+  "defaultChannelPointsRewardName": { "message": "頻道點數獎勵" },
+  "amountSuffix": {
+    "message": "（+$AMOUNT$ 點）",
+    "placeholders": { "amount": { "content": "$1" } }
+  },
+  "msgRealtimeClaim": {
+    "message": "即時領取$LABEL$：$TEXT$$AMOUNT$",
+    "placeholders": {
+      "label": { "content": "$1" },
+      "text": { "content": "$2" },
+      "amount": { "content": "$3" }
+    }
+  },
+  "msgUnknownRewardName": { "message": "(未取得名稱)" },
+  "msgPlayerMonitor": {
+    "message": "播放器監控：$REASON$",
+    "placeholders": { "reason": { "content": "$1" } }
+  },
+  "notifyPlayerMonitorTitle": { "message": "Twitch 播放器監控" },
+  "defaultPlayerAnomalyReason": { "message": "偵測到播放器異常" },
+  "msgManualStop": { "message": "已手動停止腳本" },
+  "msgManualStart": { "message": "已手動啟動腳本" },
+  "errQueryChannelFailed": {
+    "message": "查詢 $CHANNEL$ 失敗：$ERROR$",
+    "placeholders": {
+      "channel": { "content": "$1" },
+      "error": { "content": "$2" }
+    }
+  },
+  "notifyErrorTitle": { "message": "Twitch 自動轉台 - 錯誤" },
+  "msgTargetLiveSwitching": {
+    "message": "目標實況主 $CHANNEL$ 已上線，切換中",
+    "placeholders": { "channel": { "content": "$1" } }
+  },
+  "notifySwitchTitle": { "message": "Twitch 自動轉台" },
+  "errScanCategoryFailed": {
+    "message": "掃描分類頁失敗：$ERROR$",
+    "placeholders": { "error": { "content": "$1" } }
+  },
+  "msgFoundFallbackChannel": {
+    "message": "找到 $COUNT$ 位開啟掉寶的實況主，切換至 $CHANNEL$",
+    "placeholders": {
+      "count": { "content": "$1" },
+      "channel": { "content": "$2" }
+    }
+  },
+  "msgIdle": { "message": "找不到符合條件的實況主，進入閒置" },
+
+  "watchdogErrorButtonMaxRetries": {
+    "message": "偵測到播放器錯誤按鈕「$TEXT$」，但短時間內重試次數已達上限，暫停自動重試",
+    "placeholders": { "text": { "content": "$1" } }
+  },
+  "watchdogErrorButtonClicked": {
+    "message": "偵測到播放器錯誤，已自動點擊「$TEXT$」",
+    "placeholders": { "text": { "content": "$1" } }
+  },
+  "watchdogStalledReload": {
+    "message": "偵測到播放器畫面卡住超過 $SECONDS$ 秒，自動重新整理分頁",
+    "placeholders": { "seconds": { "content": "$1" } }
+  },
+  "watchdogStalledMaxRetries": { "message": "偵測到播放器卡住，但短時間內重試次數已達上限，暫停自動重新整理" },
+  "watchdogForcedPlay": { "message": "偵測到播放器被暫停，已自動恢復播放" },
+  "watchdogGateClicked": { "message": "偵測到年齡／內容確認或播放器錯誤畫面，已自動點擊繼續觀看／重試" },
+  "msgChannelGaveUp": {
+    "message": "$CHANNEL$ 的播放器多次重試仍失敗，先跳過這個頻道 $MINUTES$ 分鐘，改找其他實況主",
+    "placeholders": {
+      "channel": { "content": "$1" },
+      "minutes": { "content": "$2" }
+    }
+  },
+  "watchdogErrorReload": {
+    "message": "播放器錯誤（$CODE$）持續未恢復，自動重新整理分頁",
+    "placeholders": { "code": { "content": "$1" } }
+  },
+
+  "errGqlOperationHttpFailed": {
+    "message": "GQL $OP$ 失敗 (HTTP $STATUS$)",
+    "placeholders": {
+      "op": { "content": "$1" },
+      "status": { "content": "$2" }
+    }
+  },
+  "errGqlOperationResponseError": {
+    "message": "GQL $OP$ 回傳錯誤：$ERRORS$",
+    "placeholders": {
+      "op": { "content": "$1" },
+      "errors": { "content": "$2" }
+    }
+  },
+  "errNotLoggedIn": { "message": "找不到登入憑證（auth-token），可能尚未登入 Twitch" },
+  "errIntegrityTimeout": { "message": "取得反機器人驗證 token 逾時" },
+  "errInventoryQueryFailed": {
+    "message": "查詢掉寶庫存失敗：$ERROR$",
+    "placeholders": { "error": { "content": "$1" } }
+  },
+  "errAllClaimsFailed": {
+    "message": "找到 $COUNT$ 個待領掉寶，但全部領取失敗：$ERROR$",
+    "placeholders": {
+      "count": { "content": "$1" },
+      "error": { "content": "$2" }
+    }
+  },
+  "defaultUnknownError": { "message": "未知錯誤" },
+  "msgNotOnChannelPage": { "message": "目前分頁沒有在看特定頻道" },
+  "errChannelPointsQueryFailed": {
+    "message": "查詢頻道點數狀態失敗：$ERROR$",
+    "placeholders": { "error": { "content": "$1" } }
+  },
+  "errChannelPointsClaimFailed": {
+    "message": "領取頻道點數失敗：$ERROR$",
+    "placeholders": { "error": { "content": "$1" } }
+  }
+}

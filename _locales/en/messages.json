@@ -1,0 +1,229 @@
+{
+  "extName": { "message": "Twitch Auto Channel Switcher" },
+  "extDescription": { "message": "Detects when a specific streamer goes live and switches to their channel automatically; when offline, watches a channel with Drops enabled in a chosen game category instead, otherwise stays idle; also auto-claims Drops rewards." },
+
+  "guideHeading": { "message": "How to Use" },
+  "guideStep1": { "message": "In \"Settings\", fill in the \"Target Streamer\" and \"Category Slug\" with the streamer and game category you want (the category slug is the part after twitch.tv/directory/category/ in the URL), then click \"Save Settings\"." },
+  "guideStep2": { "message": "Click the button at the top to enable/disable the tool; once enabled it will automatically switch you to the right channel." },
+  "guideStep3": { "message": "Drops and Channel Points rewards are claimed automatically in the background — no need to click anything manually." },
+  "guideStep4": { "message": "If the player freezes or errors out, it's detected automatically and the tab is reloaded for you." },
+  "guideStep5": { "message": "If you don't want desktop notifications, turn them off in the \"Desktop Notifications\" section." },
+  "guideStep6": { "message": "If the text is too small, adjust it with the \"Text Size\" dropdown at the top." },
+
+  "statusLabel": { "message": "Status" },
+  "currentChannelLabel": { "message": "Current Channel" },
+  "lastCheckLabel": { "message": "Last Check" },
+  "errorLabel": { "message": "Error" },
+  "checkNowBtn": { "message": "Check Now" },
+
+  "notificationsHeading": { "message": "Desktop Notifications" },
+  "enableNotificationsLabel": { "message": "Enable desktop notifications" },
+  "enableNotificationsHint": { "message": "Notifies on switches, claims, errors (applies instantly); auto-reloads are silent" },
+  "saveNotificationsBtn": { "message": "Save Notification Settings" },
+
+  "settingsHeading": { "message": "Settings" },
+  "targetChannelLabel": { "message": "Target Streamer" },
+  "categorySlugLabel": { "message": "Category Slug" },
+  "dropsTagTextsLabel": { "message": "Drops Tag Text" },
+  "commaSeparatedHint": { "message": "Comma-separated, matches any" },
+  "intervalSecondsLabel": { "message": "Check Interval (seconds)" },
+  "dropsRecheckIntervalLabel": { "message": "Drops Re-check Interval (minutes)" },
+  "dropsRecheckIntervalHint": { "message": "How often to re-verify Drops is still enabled while the fallback channel is still live" },
+  "focusTabLabel": { "message": "Focus tab when switching" },
+  "adoptExistingTabLabel": { "message": "Adopt existing Twitch tab" },
+  "adoptExistingTabHint": { "message": "Avoids opening a duplicate new tab" },
+  "idleActionLabel": { "message": "Idle Behavior" },
+  "idleActionNone": { "message": "Do nothing" },
+  "idleActionHome": { "message": "Go to Twitch homepage" },
+  "saveBtn": { "message": "Save Settings" },
+
+  "claimHeading": { "message": "Auto-Claim Rewards (Drops / Channel Points)" },
+  "autoClaimDropsLabel": { "message": "Enable auto-claim" },
+  "claimButtonTextsLabel": { "message": "Claim Button Text" },
+  "inventoryCheckIntervalLabel": { "message": "Inventory Check Interval (minutes)" },
+  "claimChannelPointsLabel": { "message": "Claim Channel Points Bonus" },
+  "claimChannelPointsHint": { "message": "Claimed directly via private API, not simulated clicks" },
+  "saveClaimBtn": { "message": "Save Claim Settings" },
+  "checkInventoryNowBtn": { "message": "Check Drops Inventory Now" },
+  "checkingBtnText": { "message": "Checking..." },
+
+  "watchdogHeading": { "message": "Player Auto-Reload" },
+  "autoReloadLabel": { "message": "Enable auto-reload" },
+  "playerStallSecondsLabel": { "message": "Stall Detection (seconds)" },
+  "reloadButtonTextsLabel": { "message": "Retry/Reload Button Text" },
+  "saveWatchdogBtn": { "message": "Save Player Settings" },
+
+  "claimHistoryHeading": { "message": "Reward Claim History" },
+  "totalPointsLabel": { "message": "Total Channel Points Claimed" },
+  "clearHistoryBtn": { "message": "Clear History" },
+  "activityLogHeading": { "message": "Activity Log" },
+  "sponsorLinkTitle": { "message": "Support this project" },
+  "sponsorLinkText": { "message": "Support" },
+  "fontSizeLabel": { "message": "Text Size" },
+  "fontSizeXs": { "message": "Smallest" },
+  "fontSizeSm": { "message": "Small" },
+  "fontSizeMd": { "message": "Medium" },
+  "fontSizeLg": { "message": "Large" },
+  "fontSizeXl": { "message": "Largest" },
+
+  "statusIdle": { "message": "Idle" },
+  "statusTargetLive": { "message": "Target streamer live" },
+  "statusFallbackLive": { "message": "Watching category Drops channel" },
+  "statusChecking": { "message": "Checking..." },
+  "statusError": { "message": "Error occurred" },
+  "statusDisabled": { "message": "Disabled" },
+  "claimTypeChannelPoints": { "message": "Channel Points" },
+  "claimTypeDrop": { "message": "Drop" },
+  "claimTypeDropInventory": { "message": "Drop (inventory catch-up)" },
+  "toggleOnText": { "message": "▶ Running (click to stop)" },
+  "toggleOffText": { "message": "⏸ Stopped (click to start)" },
+  "savedText": { "message": "Saved" },
+
+  "errGqlHttpFailed": {
+    "message": "GQL query failed (HTTP $STATUS$)",
+    "placeholders": { "status": { "content": "$1" } }
+  },
+  "errChannelNotFound": {
+    "message": "Streamer \"$LOGIN$\" not found — please check the channel name",
+    "placeholders": { "login": { "content": "$1" } }
+  },
+  "errCategoryNotFound": {
+    "message": "Category \"$SLUG$\" not found — please check the category slug",
+    "placeholders": { "slug": { "content": "$1" } }
+  },
+  "errNoResponse": { "message": "No response received" },
+  "defaultDropRewardName": { "message": "Drop Reward" },
+  "notifyClaimTitle": { "message": "Twitch Auto-Claim" },
+  "msgApiInventoryClaimed": {
+    "message": "Checked Drops inventory via API: auto-claimed $COUNT$ reward(s)",
+    "placeholders": { "count": { "content": "$1" } }
+  },
+  "msgChannelPointsApiQueryFailed": {
+    "message": "Channel Points API query failed: $ERROR$",
+    "placeholders": { "error": { "content": "$1" } }
+  },
+  "msgDomInventoryClaimed": {
+    "message": "(Fallback) Periodic Drops inventory check: auto-claimed $COUNT$ reward(s)",
+    "placeholders": { "count": { "content": "$1" } }
+  },
+  "msgInventoryCheckFailed": {
+    "message": "Failed to check Drops inventory: $ERROR$",
+    "placeholders": { "error": { "content": "$1" } }
+  },
+  "msgApiClaimFallback": {
+    "message": "Private API claim failed ($REASON$), falling back to scanning the inventory page",
+    "placeholders": { "reason": { "content": "$1" } }
+  },
+  "defaultChannelPointsRewardName": { "message": "Channel Points Reward" },
+  "amountSuffix": {
+    "message": " (+$AMOUNT$ pts)",
+    "placeholders": { "amount": { "content": "$1" } }
+  },
+  "msgRealtimeClaim": {
+    "message": "Claimed $LABEL$ in real time: $TEXT$$AMOUNT$",
+    "placeholders": {
+      "label": { "content": "$1" },
+      "text": { "content": "$2" },
+      "amount": { "content": "$3" }
+    }
+  },
+  "msgUnknownRewardName": { "message": "(name unavailable)" },
+  "msgPlayerMonitor": {
+    "message": "Player monitor: $REASON$",
+    "placeholders": { "reason": { "content": "$1" } }
+  },
+  "notifyPlayerMonitorTitle": { "message": "Twitch Player Monitor" },
+  "defaultPlayerAnomalyReason": { "message": "Player anomaly detected" },
+  "msgManualStop": { "message": "Manually stopped" },
+  "msgManualStart": { "message": "Manually started" },
+  "errQueryChannelFailed": {
+    "message": "Failed to query $CHANNEL$: $ERROR$",
+    "placeholders": {
+      "channel": { "content": "$1" },
+      "error": { "content": "$2" }
+    }
+  },
+  "notifyErrorTitle": { "message": "Twitch Auto-Switch - Error" },
+  "msgTargetLiveSwitching": {
+    "message": "Target streamer $CHANNEL$ is now live, switching",
+    "placeholders": { "channel": { "content": "$1" } }
+  },
+  "notifySwitchTitle": { "message": "Twitch Auto-Switch" },
+  "errScanCategoryFailed": {
+    "message": "Failed to scan category page: $ERROR$",
+    "placeholders": { "error": { "content": "$1" } }
+  },
+  "msgFoundFallbackChannel": {
+    "message": "Found $COUNT$ streamer(s) with Drops enabled, switching to $CHANNEL$",
+    "placeholders": {
+      "count": { "content": "$1" },
+      "channel": { "content": "$2" }
+    }
+  },
+  "msgIdle": { "message": "No matching streamer found, going idle" },
+
+  "watchdogErrorButtonMaxRetries": {
+    "message": "Detected player error button \"$TEXT$\", but the retry limit was reached recently — pausing auto-retry",
+    "placeholders": { "text": { "content": "$1" } }
+  },
+  "watchdogErrorButtonClicked": {
+    "message": "Detected a player error, auto-clicked \"$TEXT$\"",
+    "placeholders": { "text": { "content": "$1" } }
+  },
+  "watchdogStalledReload": {
+    "message": "Detected the player stalled for over $SECONDS$ seconds, auto-reloading the tab",
+    "placeholders": { "seconds": { "content": "$1" } }
+  },
+  "watchdogStalledMaxRetries": { "message": "Detected the player stalled, but the retry limit was reached recently — pausing auto-reload" },
+  "watchdogForcedPlay": { "message": "Detected the player was paused; resumed playback automatically" },
+  "watchdogGateClicked": { "message": "Detected an age/content gate or player error screen; auto-clicked to continue watching / retry" },
+  "msgChannelGaveUp": {
+    "message": "The player on $CHANNEL$ kept failing after several retries; skipping this channel for $MINUTES$ minutes and switching to another streamer",
+    "placeholders": {
+      "channel": { "content": "$1" },
+      "minutes": { "content": "$2" }
+    }
+  },
+  "watchdogErrorReload": {
+    "message": "Player error ($CODE$) did not recover; auto-reloading the tab",
+    "placeholders": { "code": { "content": "$1" } }
+  },
+
+  "errGqlOperationHttpFailed": {
+    "message": "GQL $OP$ failed (HTTP $STATUS$)",
+    "placeholders": {
+      "op": { "content": "$1" },
+      "status": { "content": "$2" }
+    }
+  },
+  "errGqlOperationResponseError": {
+    "message": "GQL $OP$ returned an error: $ERRORS$",
+    "placeholders": {
+      "op": { "content": "$1" },
+      "errors": { "content": "$2" }
+    }
+  },
+  "errNotLoggedIn": { "message": "Could not find login credentials (auth-token) — you may not be logged into Twitch" },
+  "errIntegrityTimeout": { "message": "Timed out getting the anti-bot verification token" },
+  "errInventoryQueryFailed": {
+    "message": "Failed to query Drops inventory: $ERROR$",
+    "placeholders": { "error": { "content": "$1" } }
+  },
+  "errAllClaimsFailed": {
+    "message": "Found $COUNT$ claimable drop(s), but all claim attempts failed: $ERROR$",
+    "placeholders": {
+      "count": { "content": "$1" },
+      "error": { "content": "$2" }
+    }
+  },
+  "defaultUnknownError": { "message": "Unknown error" },
+  "msgNotOnChannelPage": { "message": "The current tab is not on a specific channel" },
+  "errChannelPointsQueryFailed": {
+    "message": "Failed to query Channel Points status: $ERROR$",
+    "placeholders": { "error": { "content": "$1" } }
+  },
+  "errChannelPointsClaimFailed": {
+    "message": "Failed to claim Channel Points: $ERROR$",
+    "placeholders": { "error": { "content": "$1" } }
+  }
+}

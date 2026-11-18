@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <title data-i18n="extName">Twitch 自動轉台工具</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="header-row">
+      <h1 data-i18n="extName">Twitch 自動轉台工具</h1>
+      <a class="sponsor-link" href="https://ko-fi.com/sagiriben" target="_blank" rel="noopener noreferrer" data-i18n-title="sponsorLinkTitle" title="贊助支持這個專案">☕ <span data-i18n="sponsorLinkText">贊助</span></a>
+    </div>
+
+    <div class="display-settings-row">
+      <span class="label" data-i18n="fontSizeLabel">文字大小</span>
+      <select id="fontSizeLevel">
+        <option value="1" data-i18n="fontSizeXs">最小</option>
+        <option value="2" data-i18n="fontSizeSm">小</option>
+        <option value="3" data-i18n="fontSizeMd">中</option>
+        <option value="4" data-i18n="fontSizeLg">大</option>
+        <option value="5" data-i18n="fontSizeXl">最大</option>
+      </select>
+    </div>
+
+    <button id="toggleEnabledBtn" class="toggle-btn state-off" data-i18n="toggleOffText">⏸ 已停止（點擊啟動）</button>
+
+    <section class="status-box">
+      <div class="row"><span class="label" data-i18n="statusLabel">狀態</span><span id="statusText" data-i18n="statusDisabled">已停用</span></div>
+      <div class="row"><span class="label" data-i18n="currentChannelLabel">目前頻道</span><span id="currentChannel">-</span></div>
+      <div class="row"><span class="label" data-i18n="lastCheckLabel">上次檢查</span><span id="lastCheck">-</span></div>
+      <div class="row" id="errorRow" style="display:none;"><span class="label" data-i18n="errorLabel">錯誤</span><span id="lastError"></span></div>
+      <button id="checkNowBtn" data-i18n="checkNowBtn">立即檢查</button>
+    </section>
+
+    <details class="settings-box">
+      <summary><h2 data-i18n="guideHeading">使用說明</h2></summary>
+      <ol class="guide-list">
+        <li data-i18n="guideStep1">在「設定」填入「目標實況主」與「分類 slug」，換成你想看的實況主與遊戲分類（分類 slug 就是 twitch.tv/directory/category/ 後面那段文字），再按「儲存設定」。</li>
+        <li data-i18n="guideStep2">點擊最上方的按鈕啟用／停止整個工具；啟用後它會自動幫你切到正確的頻道。</li>
+        <li data-i18n="guideStep3">掉寶與頻道點數獎勵會自動在背景領取，不需要手動點擊任何按鈕。</li>
+        <li data-i18n="guideStep4">如果畫面卡住或播放器出錯，會自動偵測並重新整理分頁，不需要自己手動重新整理。</li>
+        <li data-i18n="guideStep5">不想收到系統通知的話，可以在「桌面通知」區塊裡關閉。</li>
+        <li data-i18n="guideStep6">覺得字太小看不清楚，可以用最上面的「文字大小」下拉選單調整。</li>
+      </ol>
+    </details>
+
+    <details class="settings-box">
+      <summary><h2 data-i18n="notificationsHeading">桌面通知</h2></summary>
+      <label class="row">
+        <span class="label"><span data-i18n="enableNotificationsLabel">啟用桌面通知</span><br /><small data-i18n="enableNotificationsHint">切台、領取獎勵、錯誤、播放器重整都會通知</small></span>
+        <input type="checkbox" id="notificationsEnabled" />
+      </label>
+    </details>
+
+    <details class="settings-box">
+      <summary><h2 data-i18n="settingsHeading">設定</h2></summary>
+      <label class="row">
+        <span class="label" data-i18n="targetChannelLabel">目標實況主</span>
+        <input type="text" id="targetChannel" placeholder="lestakorabli" />
+      </label>
+      <label class="row">
+        <span class="label" data-i18n="categorySlugLabel">分類 slug</span>
+        <input type="text" id="categorySlug" placeholder="mir-korabley" />
+      </label>
+      <label class="row">
+        <span class="label"><span data-i18n="dropsTagTextsLabel">掉寶標籤文字</span><br /><small data-i18n="commaSeparatedHint">逗號分隔，符合任一即可</small></span>
+        <input type="text" id="dropsTagTexts" placeholder="Drops Enabled,掉寶,Включены" />
+      </label>
+      <label class="row">
+        <span class="label" data-i18n="intervalSecondsLabel">檢查間隔（秒）</span>
+        <input type="number" id="intervalSeconds" min="30" step="10" />
+      </label>
+      <label class="row">
+        <span class="label"><span data-i18n="dropsRecheckIntervalLabel">掉寶條件重新確認間隔（分鐘）</span><br /><small data-i18n="dropsRecheckIntervalHint">備援頻道還在直播時，隔多久重新確認一次掉寶還有沒有開</small></span>
+        <input type="number" id="dropsRecheckIntervalMinutes" min="1" step="1" />
+      </label>
+      <label class="row">
+        <span class="label" data-i18n="focusTabLabel">切台時聚焦分頁</span>
+        <input type="checkbox" id="focusTab" />
+      </label>
+      <label class="row">
+        <span class="label"><span data-i18n="adoptExistingTabLabel">接管現有 Twitch 分頁</span><br /><small data-i18n="adoptExistingTabHint">避免另開新分頁造成重複</small></span>
+        <input type="checkbox" id="adoptExistingTab" />
+      </label>
+      <label class="row">
+        <span class="label" data-i18n="idleActionLabel">閒置時行為</span>
+        <select id="idleAction">
+          <option value="none" data-i18n="idleActionNone">維持現狀</option>
+          <option value="home" data-i18n="idleActionHome">回到 Twitch 首頁</option>
+        </select>
+      </label>
+      <button id="saveBtn" data-i18n="saveBtn">儲存設定</button>
+    </details>
+
+    <details class="settings-box">
+      <summary><h2 data-i18n="claimHeading">自動領取獎勵（掉寶／頻道點數）</h2></summary>
+      <label class="row">
+        <span class="label" data-i18n="autoClaimDropsLabel">啟用自動領取</span>
+        <input type="checkbox" id="autoClaimDrops" />
+      </label>
+      <label class="row">
+        <span class="label"><span data-i18n="claimButtonTextsLabel">領取按鈕文字</span><br /><small data-i18n="commaSeparatedHint">逗號分隔，符合任一即可</small></span>
+        <input type="text" id="claimButtonTexts" placeholder="Claim,領取,Получить" />
+      </label>
+      <label class="row">
+        <span class="label" data-i18n="inventoryCheckIntervalLabel">庫存檢查間隔（分鐘）</span>
+        <input type="number" id="inventoryCheckIntervalMinutes" min="1" step="1" />
+      </label>
+      <label class="row">
+        <span class="label"><span data-i18n="claimChannelPointsLabel">領取頻道點數（忠誠點數）獎勵寶箱</span><br /><small data-i18n="claimChannelPointsHint">透過私有 API 直接領取，非模擬點擊</small></span>
+        <input type="checkbox" id="claimChannelPointsBonus" />
+      </label>
+      <button id="saveClaimBtn" data-i18n="saveClaimBtn">儲存領取設定</button>
+      <button id="checkInventoryNowBtn" data-i18n="checkInventoryNowBtn">立即檢查掉寶庫存</button>
+    </details>
+
+    <details class="settings-box">
+      <summary><h2 data-i18n="watchdogHeading">播放器自動重新載入</h2></summary>
+      <label class="row">
+        <span class="label" data-i18n="autoReloadLabel">啟用自動重新載入</span>
+        <input type="checkbox" id="autoReloadOnError" />
+      </label>
+      <label class="row">
+        <span class="label" data-i18n="playerStallSecondsLabel">畫面卡住判定秒數</span>
+        <input type="number" id="playerStallSeconds" min="10" step="5" />
+      </label>
+      <label class="row">
+        <span class="label"><span data-i18n="reloadButtonTextsLabel">重試/重新載入按鈕文字</span><br /><small data-i18n="commaSeparatedHint">逗號分隔，符合任一即可</small></span>
+        <input type="text" id="reloadButtonTexts" placeholder="Reload Player,Try Again,重試" />
+      </label>
+      <button id="saveWatchdogBtn" data-i18n="saveWatchdogBtn">儲存播放器設定</button>
+    </details>
+
+    <details class="log-box" open>
+      <summary><h2 data-i18n="claimHistoryHeading">獎勵領取紀錄</h2></summary>
+      <div class="row"><span class="label" data-i18n="totalPointsLabel">累計已領取忠誠點數</span><span id="totalChannelPoints">0</span></div>
+      <ul id="claimHistoryList"></ul>
+      <button id="clearHistoryBtn" data-i18n="clearHistoryBtn">清除領取紀錄</button>
+    </details>
+
+    <details class="log-box">
+      <summary><h2 data-i18n="activityLogHeading">活動紀錄</h2></summary>
+      <ul id="logList"></ul>
+    </details>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
