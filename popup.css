@@ -96,6 +96,8 @@ h2 {
 .label {
   color: #53535f;
   flex-shrink: 0;
+  /* 英文說明文字比較長，限制最寬只能到整列寬度，超過就換行，不會撐破 popup */
+  max-width: 100%;
 }
 
 input[type="text"],

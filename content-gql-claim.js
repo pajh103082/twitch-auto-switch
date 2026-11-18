@@ -13,7 +13,7 @@
 // 已經跟使用者確認過這個取捨。
 (function () {
   function t(key, subs) {
-    return chrome.i18n.getMessage(key, subs) || key;
+    return globalThis.TasI18n ? TasI18n.t(key, subs) : chrome.i18n.getMessage(key, subs) || key;
   }
 
   const GQL_ENDPOINT = "https://gql.twitch.tv/gql";

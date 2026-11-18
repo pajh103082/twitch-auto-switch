@@ -59,6 +59,8 @@
   "activityLogHeading": { "message": "Activity Log" },
   "sponsorLinkTitle": { "message": "Support this project" },
   "sponsorLinkText": { "message": "Support" },
+  "languageLabel": { "message": "Language / 語言" },
+  "languageAuto": { "message": "Auto (browser language)" },
   "fontSizeLabel": { "message": "Text Size" },
   "fontSizeXs": { "message": "Smallest" },
   "fontSizeSm": { "message": "Small" },

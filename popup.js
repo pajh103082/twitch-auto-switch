@@ -1,14 +1,12 @@
 function t(key, subs) {
-  return chrome.i18n.getMessage(key, subs) || key;
+  return globalThis.TasI18n ? TasI18n.t(key, subs) : chrome.i18n.getMessage(key, subs) || key;
 }
 
 function applyI18n() {
   // 部分瀏覽器（例如某些版本的 Edge）沒有實作 getUILocale，這只是拿來設定 <html lang>
   // 屬性用的裝飾性資訊，抓不到就跳過，不能讓它擋住下面真正重要的翻譯套用流程。
   try {
-    if (typeof chrome.i18n.getUILocale === "function") {
-      document.documentElement.lang = chrome.i18n.getUILocale();
-    }
+    document.documentElement.lang = TasI18n.currentLocale();
   } catch (e) {
     // 忽略，不影響其他功能
   }
@@ -196,6 +194,28 @@ document.getElementById("notificationsEnabled").addEventListener("change", async
   chrome.runtime.sendMessage({ type: "settingsUpdated" });
 });
 
+// 介面語言：選了就立刻切換並存檔（跟文字大小一樣不用按儲存）。
+// 選定的語言字典存在 storage，background 的通知與 content scripts 的訊息也會跟著換。
+document.getElementById("uiLanguage").addEventListener("change", async (event) => {
+  const select = event.target;
+  select.disabled = true;
+  try {
+    await TasI18n.setLanguage(select.value);
+  } catch (e) {
+    // 讀不到語言檔時退回「自動」，避免介面卡在一半翻譯的狀態
+    await TasI18n.setLanguage("auto");
+    select.value = "auto";
+  }
+  select.disabled = false;
+  await refreshAllText();
+});
+
+async function refreshAllText() {
+  applyI18n();
+  await renderSettings();
+  await renderState();
+}
+
 document.getElementById("checkNowBtn").addEventListener("click", () => {
   chrome.runtime.sendMessage({ type: "checkNow" }, () => renderState());
 });
@@ -244,7 +264,8 @@ document.getElementById("saveWatchdogBtn").addEventListener("click", async () =>
   flashSaved(document.getElementById("saveWatchdogBtn"));
 });
 
-applyI18n();
-renderSettings();
-renderState();
+TasI18n.ready.then(async () => {
+  document.getElementById("uiLanguage").value = TasI18n.getLanguage();
+  await refreshAllText();
+});
 setInterval(renderState, 3000);

@@ -59,6 +59,8 @@
   "activityLogHeading": { "message": "活動紀錄" },
   "sponsorLinkTitle": { "message": "贊助支持這個專案" },
   "sponsorLinkText": { "message": "贊助" },
+  "languageLabel": { "message": "語言 / Language" },
+  "languageAuto": { "message": "自動（跟隨瀏覽器）" },
   "fontSizeLabel": { "message": "文字大小" },
   "fontSizeXs": { "message": "最小" },
   "fontSizeSm": { "message": "小" },

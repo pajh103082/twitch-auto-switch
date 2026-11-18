@@ -13,8 +13,10 @@
 //      - 備援：上面那條路徑失敗時，改用 content-claim.js（即時攔截畫面上的領取按鈕）
 //        跟 content-inventory-claim.js（開一個背景分頁掃描 drops/inventory 頁面按鈕）。
 
+importScripts("i18n.js"); // 使用者可在 popup 手動切換介面語言（見 i18n.js）
+
 function t(key, subs) {
-  return chrome.i18n.getMessage(key, subs) || key;
+  return globalThis.TasI18n ? TasI18n.t(key, subs) : chrome.i18n.getMessage(key, subs) || key;
 }
 
 const GQL_ENDPOINT = "https://gql.twitch.tv/gql";
@@ -216,6 +218,8 @@ chrome.runtime.onInstalled.addListener(async () => {
   await updateState(DEFAULT_STATE);
   await ensureAlarm();
   await ensureClaimAlarm();
+  // 擴充功能更新後重新載入使用者選的語言字典，確保新增的字串也有翻譯
+  TasI18n.refreshStoredMessages().catch(() => {});
 });
 
 chrome.runtime.onStartup.addListener(() => {

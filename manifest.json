@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "__MSG_extName__",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "minimum_chrome_version": "111",
   "default_locale": "zh_TW",
   "description": "__MSG_extDescription__",
@@ -64,7 +64,7 @@
         "https://www.twitch.tv/directory/*",
         "https://www.twitch.tv/drops/*"
       ],
-      "js": ["content-claim.js", "content-player-watchdog.js"],
+      "js": ["i18n.js", "content-claim.js", "content-player-watchdog.js"],
       "run_at": "document_idle"
     },
     {
@@ -77,7 +77,7 @@
     {
       "matches": ["https://www.twitch.tv/*"],
       "exclude_matches": ["https://www.twitch.tv/directory/*"],
-      "js": ["content-gql-claim.js"],
+      "js": ["i18n.js", "content-gql-claim.js"],
       "run_at": "document_idle"
     }
   ]

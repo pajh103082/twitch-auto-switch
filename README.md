@@ -1,156 +1,144 @@
-# Twitch 自動轉台工具
+**English** | [繁體中文](README.zh-TW.md)
 
-[![Ko-fi 贊助](https://img.shields.io/badge/Ko--fi-贊助支持-FF5E5B?logo=ko-fi&logoColor=white)](https://ko-fi.com/sagiriben)
-![Chrome 擴充功能](https://img.shields.io/badge/Chrome-Manifest%20V3-4285F4?logo=googlechrome&logoColor=white)
-![語言](https://img.shields.io/badge/介面-繁體中文%20%7C%20English-555)
+# Twitch Auto Channel Switcher
 
-幫你掛 Twitch 的 Chrome 擴充功能：**喜歡的實況主一開台就自動切過去；他沒開台時，自動找同遊戲分類裡有開掉寶的頻道來看；掉寶和頻道點數全部自動領。** 開著放背景就好，不用一直盯著畫面。
+[![Support on Ko-fi](https://img.shields.io/badge/Ko--fi-Support%20me-FF5E5B?logo=ko-fi&logoColor=white)](https://ko-fi.com/sagiriben)
+![Chrome Extension](https://img.shields.io/badge/Chrome-Manifest%20V3-4285F4?logo=googlechrome&logoColor=white)
+![Languages](https://img.shields.io/badge/UI-English%20%7C%20繁體中文-555)
+[![Latest release](https://img.shields.io/github/v/release/pajh103082/twitch-auto-switch)](../../releases/latest)
 
-> English summary is at the [bottom of this page](#english).
+<img src="docs/popup-en.png" alt="Extension popup screenshot" width="320" align="right">
+
+A Chrome extension for idling on Twitch. **When your favorite streamer goes live, it switches to their stream. When they're offline, it finds a Drops-enabled stream in the game category you choose. It claims Drops and channel points for you.** Leave it running in the background; you don't have to watch the screen.
 
 ---
 
-## ☕ 支持這個專案
+## ☕ Support this project
 
-這個工具免費、開源，也沒有廣告。如果它幫你省下了盯台、按領取按鈕的時間，歡迎請開發者喝杯咖啡，你的支持是持續維護和更新的動力：
+This extension is free, open source and has no ads. If it saves you time watching streams and clicking "Claim", please consider buying me a coffee. Your support keeps it maintained and updated:
 
 ### 👉 [ko-fi.com/sagiriben](https://ko-fi.com/sagiriben)
 
-擴充功能的設定面板最上方也有一顆「☕ 贊助」按鈕。
+There's also a **☕ Support** button at the top of the extension popup.
 
 ---
 
-## 功能
+## Features
 
-- ⭐ **目標實況主上線就自動切台**：每隔一段時間（預設 60 秒）檢查一次，一開台就把分頁切過去。
-- 🎮 **離線時自動找掉寶頻道**：目標實況主沒開台時，到你指定的遊戲分類裡，找一個有開掉寶（Drops）的頻道來看。正在看的頻道只要還在直播、掉寶還開著，就不會被白白切走、打斷觀看時數。
-- 🎁 **自動領取掉寶與頻道點數**：獎勵可以領的時候自動領走，還會記錄領取紀錄和累計領到的忠誠點數。
-- 🔄 **播放器自動修復**：畫面卡住、被暫停、出現「錯誤 #1000」或成人內容確認畫面時，會自動重試、續播或重新整理。同一個頻道一直播不起來，會暫時跳過、改看別台。
-- 🌙 **背景掛台也穩定**：視窗被蓋住、最小化或螢幕鎖定時，Twitch 也不會自己暫停。工具不會搶你的視窗焦點，也不會讓 Windows 工具列一直閃。
-- 🔔 **桌面通知（可關閉）**：切台、領到獎勵、發生錯誤時跳出系統通知。
-- 🔠 **文字大小可調**：設定面板有 5 段文字大小可選，長輩也看得清楚。
-- 🌐 **繁體中文 / English**：介面會跟著瀏覽器語言自動切換。
+- ⭐ **Auto-switch when your streamer goes live.** It checks every 60 seconds by default and switches the tab as soon as they start streaming.
+- 🎮 **Finds a Drops stream while they're offline.** It opens the game category you choose and picks a channel with Drops enabled. If the channel you're on is still live and still has Drops, it stays put, so your watch time isn't interrupted.
+- 🎁 **Auto-claims Drops and channel points.** Rewards are claimed as soon as they're available. It keeps a claim history and a running total of channel points earned.
+- 🔄 **Player watchdog.** It resumes paused video and clicks through "error #1000" and mature-content warnings. If the player freezes, it reloads the page. If a channel keeps failing, it skips that channel for a while and watches another one.
+- 🌙 **Stable in the background.** Twitch keeps playing when the window is covered or minimized, or the screen is locked. The extension never steals focus or makes your taskbar flash.
+- 🔔 **Desktop notifications (optional).** You get notified when it switches channels, claims a reward or hits an error.
+- 🌐 **English / 繁體中文, switch anytime.** Use the **Language** menu at the top of the popup: Auto (browser language), 繁體中文 or English. The change applies instantly, including notifications and the activity log.
+- 🔠 **Adjustable text size.** Choose from 5 text sizes for easier reading.
 
-## ⚠️ 使用前請先了解
+## ⚠️ Please read before using
 
-為了穩定領取獎勵，這個工具會呼叫 Twitch 網頁本身也在用、但**官方沒有公開文件的內部介面**，並通過 Twitch 的反機器人驗證。這類自動化行為**可能違反 [Twitch 服務條款](https://www.twitch.tv/p/en/legal/terms-of-service/)**，Twitch 有可能對帳號採取限制或停權。
+To claim rewards reliably, this extension calls Twitch's **undocumented internal API** (the same one the Twitch website uses) and passes Twitch's anti-bot integrity check. This kind of automation **may violate the [Twitch Terms of Service](https://www.twitch.tv/p/en/legal/terms-of-service/)**, and Twitch could restrict or suspend your account.
 
-**請自行評估風險後再使用，使用本工具造成的任何後果由使用者自行承擔。** 如果你很在意帳號安全，可以在設定裡關掉「領取頻道點數」和「啟用自動領取」，只保留自動轉台功能。
+**Use it at your own risk. You are responsible for any consequences of using this tool.** If you're worried about your account, turn off **Claim Channel Points Bonus** and **Enable auto-claim** in the settings and use only the auto-switching.
 
-## 安裝方式
+## Installation
 
-1. 到 [Releases 頁面](../../releases/latest) 下載最新的 `twitch-auto-switch-vX.X.X.zip`，**解壓縮**到一個你不會刪掉的資料夾。
-   （或按這個頁面上方綠色的 **Code → Download ZIP**，解壓縮後使用。）
-2. 打開 Chrome，網址列輸入 `chrome://extensions`。
-3. 打開右上角的「**開發人員模式**」。
-4. 點「**載入未封裝項目**」，選擇剛剛解壓縮出來、裡面有 `manifest.json` 的那個資料夾。
-5. 點瀏覽器右上角的拼圖圖示，把「Twitch 自動轉台工具」釘選到工具列，方便之後打開。
+1. Download the latest `twitch-auto-switch-vX.X.X.zip` from the [Releases page](../../releases/latest) and **unzip** it to a folder you won't delete.
+   (Or click the green **Code → Download ZIP** button at the top of this page and unzip it.)
+2. Open Chrome and go to `chrome://extensions`.
+3. Turn on **Developer mode** (top-right corner).
+4. Click **Load unpacked** and select the unzipped folder, the one that contains `manifest.json`.
+5. Click the puzzle-piece icon in the toolbar and pin **Twitch Auto Channel Switcher** so it's easy to open.
 
-> Edge、Brave 等 Chromium 核心的瀏覽器也可以用同樣方式安裝（需要 Chrome 111 以上或同等版本）。
+> It also works in other Chromium-based browsers such as Edge and Brave (Chrome 111 or later, or equivalent). Install it the same way.
 
-## 快速上手
+## Quick start
 
-1. 先在瀏覽器裡**登入你的 Twitch 帳號**（自動領取需要登入）。
-2. 點擴充功能圖示，打開設定面板，在「**設定**」區塊填入：
-   - **目標實況主**：你想看的實況主帳號名稱，也就是頻道網址 `twitch.tv/` 後面那段，例如 `twitch.tv/abc123` 就填 `abc123`。
-   - **分類 slug**：目標實況主沒開台時要去找掉寶頻道的遊戲分類。打開該遊戲的分類頁，網址 `twitch.tv/directory/category/` 後面那段就是 slug，例如 `twitch.tv/directory/category/valorant` 就填 `valorant`。
-3. 按「**儲存設定**」。
-4. 按最上方的「**⏸ 已停止（點擊啟動）**」，變成「▶ 執行中」就開始運作了。
+1. **Log into your Twitch account** in the browser. Auto-claiming requires being logged in.
+2. Click the extension icon. If the popup isn't in English, change **Language / 語言** at the top to **English**.
+3. Under **Settings**, fill in:
+   - **Target Streamer**: the streamer's username, i.e. the part after `twitch.tv/`. For `twitch.tv/abc123`, enter `abc123`.
+   - **Category Slug**: the game category to search for Drops streams while your streamer is offline. Open the game's category page; the slug is the part after `twitch.tv/directory/category/`. For `twitch.tv/directory/category/valorant`, enter `valorant`.
+4. Click **Save Settings**.
+5. Click **⏸ Stopped (click to start)** at the top. When it changes to **▶ Running**, the extension is working.
 
-剛安裝好時工具是**停止狀態**，不會自己亂動，要按下啟動才會開始。
+After a fresh install the extension is **stopped**, so it won't do anything until you start it.
 
-## 設定說明
+## Settings
 
-| 設定 | 預設值 | 說明 |
+| Setting | Default | Description |
 |---|---|---|
-| 目標實況主 | `lestakorabli` | 優先要看的實況主帳號名稱，請改成你自己的。 |
-| 分類 slug | `mir-korabley` | 目標實況主沒開台時要找掉寶頻道的遊戲分類，請改成你自己的。 |
-| 掉寶標籤文字 | Drops Enabled、掉寶… | 實況卡片上出現這些文字就當作「有開掉寶」，用逗號分隔。如果你的 Twitch 介面語言比較特別，可以自行加上畫面顯示的文字。 |
-| 檢查間隔（秒） | 60 | 多久檢查一次實況主有沒有開台。Chrome 限制最短大約 1 分鐘。 |
-| 掉寶條件重新確認間隔（分鐘） | 10 | 正在看備援頻道時，多久重新確認一次掉寶還有沒有開。 |
-| 切台時聚焦分頁 | 關 | 切台時要不要把分頁切到前面。背景掛台建議保持關閉。 |
-| 接管現有 Twitch 分頁 | 開 | 直接使用你已經開著的 Twitch 分頁，避免多開一個。 |
-| 閒置時行為 | 維持現狀 | 找不到任何可看的頻道時，要維持原樣還是回到 Twitch 首頁。 |
-| 啟用自動領取 | 開 | 自動領取掉寶獎勵。 |
-| 領取按鈕文字 | Claim、領取… | 備援領取方式比對的按鈕文字。 |
-| 庫存檢查間隔（分鐘） | 5 | 多久檢查一次掉寶庫存裡有沒有可以領的獎勵。 |
-| 領取頻道點數獎勵寶箱 | 開 | 自動領取聊天室的頻道點數（忠誠點數）寶箱。 |
-| 啟用自動重新載入 | 開 | 播放器卡住或出錯時自動處理。 |
-| 畫面卡住判定秒數 | 45 | 畫面超過幾秒沒有動，才當作真的卡住。 |
-| 桌面通知 | 開 | 切台、領獎、錯誤時跳系統通知，勾選後立即生效。 |
-| 文字大小 | 中 | 設定面板的字體大小，選了立即生效。 |
+| Target Streamer | `lestakorabli` | The streamer you want to watch first. Change it to your own. |
+| Category Slug | `mir-korabley` | The game category to search for Drops streams while your streamer is offline. Change it to your own. |
+| Drops Tag Text | Drops Enabled, … | Comma-separated. A stream card showing any of these is treated as "Drops enabled". Add your own if your Twitch UI language uses different text. |
+| Check Interval (seconds) | 60 | How often to check whether your streamer is live. Chrome limits this to about 1 minute minimum. |
+| Drops Re-check Interval (minutes) | 10 | While watching a fallback channel, how often to re-check that Drops are still enabled. |
+| Focus tab when switching | Off | Whether to bring the tab to the front when switching. Keep it off for background idling. |
+| Adopt existing Twitch tab | On | Reuse a Twitch tab you already have open instead of opening a new one. |
+| Idle Behavior | Do nothing | What to do when no stream qualifies: stay as is, or go back to the Twitch home page. |
+| Enable auto-claim | On | Automatically claim Drops. |
+| Claim Button Text | Claim, … | Button text used by the fallback claiming method. |
+| Inventory Check Interval (minutes) | 5 | How often to check your Drops inventory for claimable rewards. |
+| Claim Channel Points Bonus | On | Automatically claim channel-point bonus chests in chat. |
+| Enable auto-reload | On | Automatically fix a frozen or broken player. |
+| Stall Detection (seconds) | 45 | How long the video must be frozen before it counts as stuck. |
+| Desktop notifications | On | Notify on channel switches, claimed rewards and errors. Takes effect instantly. |
+| Language / 語言 | Auto | Auto (browser language), 繁體中文 or English. Takes effect instantly. |
+| Text Size | Medium | Popup text size. Takes effect instantly. |
 
-## 常見問題
+## FAQ
 
-**Q：會不會一直開新的 Twitch 分頁？**
-不會。工具只會管理一個分頁，切台時是在同一個分頁換網址。你自己另外開的 Twitch 分頁不會被動到。
+**Will it keep opening new Twitch tabs?**
+No. It manages a single tab and switches channels by changing that tab's URL. Other Twitch tabs you open yourself are left alone.
 
-**Q：我正在看的頻道會不會一直被重新整理、切來切去？**
-不會。只要目前的頻道還在直播、掉寶還開著，工具就不會去動它。只有在目標實況主開台、目前頻道下播，或掉寶被關掉時才會換台。
+**Will it keep reloading or switching away from the channel I'm watching?**
+No. As long as the current channel is still live with Drops enabled, it leaves it alone. It only switches when your streamer goes live, the current channel goes offline, or Drops get turned off.
 
-**Q：顯示「找不到實況主」或「找不到分類」？**
-帳號名稱或分類 slug 打錯了。請照著「快速上手」的說明，從網址複製正確的文字。
+**It says "Streamer not found" or "Category not found".**
+The username or category slug is misspelled. Copy the exact text from the URL, as described in [Quick start](#quick-start).
 
-**Q：顯示「找不到登入憑證」？**
-你還沒登入 Twitch，或登入已經過期。請在同一個瀏覽器重新登入 Twitch。
+**It says "Could not find login credentials".**
+You're not logged into Twitch, or your login expired. Log into Twitch again in the same browser.
 
-**Q：畫面上明明有可以領的獎勵，卻沒有被自動領走？**
-先在 `chrome://extensions` 按擴充功能的重新整理鈕，再按設定面板裡的「立即檢查掉寶庫存」。還是不行的話，請到 [Issues](../../issues) 回報，附上設定面板「活動紀錄」裡顯示的錯誤訊息。
+**A reward is ready to claim, but it wasn't claimed automatically.**
+Click the reload button on the extension in `chrome://extensions`, then click **Check Drops Inventory Now** in the popup. If it still doesn't work, please open an [issue](../../issues) and include the error messages from the popup's **Activity Log**.
 
-**Q：電腦鎖定螢幕後還會繼續掛台嗎？**
-工具會讓 Twitch 以為分頁一直在前景，盡量不讓直播自己暫停。但作業系統如果在鎖定時把瀏覽器整個凍結，就不是擴充功能能控制的了。
+**Does it keep running when my screen is locked?**
+The extension makes Twitch believe the tab is always in the foreground, so the stream doesn't pause itself. But if your operating system freezes the whole browser while locked, that's outside the extension's control.
 
-**Q：通知太多很吵？**
-在「桌面通知」區塊取消勾選就好，立即生效。播放器自動修復這類例行動作本來就不會跳通知，只會寫進活動紀錄。
+**Too many notifications?**
+Uncheck the option under **Desktop Notifications**; it takes effect instantly. Routine player fixes never show notifications; they only go to the activity log.
 
-## 運作原理（給想了解的人）
+## How it works
 
-- **查詢開台狀態**：使用 Twitch 網頁前端本身也在用的公開 GQL 介面。
-- **找掉寶頻道**：打開遊戲分類頁，掃描實況卡片上的掉寶標籤（`content-directory.js`）。
-- **領取獎勵（主要方式）**：呼叫 Twitch 內部的 GQL 介面查詢、領取掉寶與頻道點數（`content-gql-claim.js`），並在網頁環境中取得 Twitch 反機器人驗證所需的 token（`page-integrity-bridge.js`）。
-- **領取獎勵（備援方式）**：主要方式失敗時，改成掃描掉寶庫存頁上的「領取」按鈕並點擊（`content-claim.js`、`content-inventory-claim.js`）。
-- **保持播放**：覆寫網頁的可見性狀態，讓 Twitch 不會因為分頁在背景而暫停（`page-keep-active.js`），並監看播放器狀態、自動修復（`content-player-watchdog.js`）。
+- **Live status:** uses the public GQL endpoint that the Twitch website itself uses.
+- **Finding Drops streams:** opens the game category page and scans stream cards for the Drops tag (`content-directory.js`).
+- **Claiming rewards (main method):** calls Twitch's internal GQL operations to query and claim Drops and channel points (`content-gql-claim.js`), and gets the token Twitch's anti-bot check requires from within the page (`page-integrity-bridge.js`).
+- **Claiming rewards (fallback):** if the main method fails, it finds and clicks the "Claim" buttons on the Drops inventory page (`content-claim.js`, `content-inventory-claim.js`).
+- **Keeping playback alive:** overrides the page's visibility state so Twitch doesn't pause in the background (`page-keep-active.js`), and watches the player to fix problems automatically (`content-player-watchdog.js`).
+- **UI language switching:** `i18n.js` loads the chosen language's messages from `_locales/` into browser local storage. The popup, background notifications and content scripts all read their translations from there.
 
-## 已知限制
+## Known limitations
 
-- Twitch 改版（換掉內部介面、改變頁面結構或按鈕文字）時，部分功能可能會失效，需要等更新。
-- 找掉寶頻道靠的是分類頁上顯示的文字。如果你的介面語言沒有被預設文字涵蓋，請到設定裡自行加上「掉寶標籤文字」。
-- 這不是 Twitch 官方工具，請參考上方的「使用前請先了解」。
+- If Twitch changes its internal API, page layout or button text, some features may break until the extension is updated.
+- Finding Drops streams relies on the text shown on the category page. If your Twitch UI language isn't covered by the defaults, add your own **Drops Tag Text** in the settings.
+- This is not an official Twitch tool. See [Please read before using](#️-please-read-before-using).
 
-## 隱私
+## Privacy
 
-- 所有設定和紀錄**只存在你自己的瀏覽器裡**，不會上傳到開發者或任何第三方伺服器。
-- 你的 Twitch 登入憑證只會在你的瀏覽器裡使用，直接送給 Twitch 官方伺服器，不會送到其他地方。
-- 沒有任何分析或追蹤程式碼。
+- All settings and logs are stored **only in your own browser**. Nothing is uploaded to the developer or any third-party server.
+- Your Twitch login credentials are only used inside your browser and sent directly to Twitch's official servers.
+- No analytics or tracking code.
 
-完整內容請看 [隱私權政策](PRIVACY_POLICY.md)。
+See the full [Privacy Policy](PRIVACY_POLICY.en.md).
 
-## 問題回報與建議
+## Translations
 
-遇到 bug 或有功能建議，歡迎到 [Issues](../../issues) 留言。回報問題時，附上設定面板「活動紀錄」裡的訊息會很有幫助。
+Want the extension in your language? Copy `_locales/en/messages.json` to `_locales/<your-locale>/messages.json` and translate the `message` values. Then add the locale to `SUPPORTED` in `i18n.js` and to the `<select id="uiLanguage">` menu in `popup.html`, and open a pull request. Contributions are welcome!
 
-## 授權
+## Bug reports and suggestions
+
+Found a bug or have an idea? Please open an [issue](../../issues). Including the messages from the popup's **Activity Log** helps a lot.
+
+## License
 
 [MIT License](LICENSE)
-
----
-
-<a id="english"></a>
-
-## English
-
-**Twitch Auto Switch** is a Chrome extension (Manifest V3) for idling on Twitch:
-
-- Automatically switches to your **target streamer** as soon as they go live.
-- When they're offline, it finds a **Drops-enabled channel** in the game category you choose and watches that instead, without interrupting a channel that still qualifies.
-- **Auto-claims Drops and channel-point bonus chests**, and keeps a claim history with a running total of channel points.
-- **Player watchdog**: auto-resumes paused video and clicks through error #1000 and mature-content gates. If the player freezes it reloads the page, and if a channel keeps failing it switches to another one.
-- Keeps playing in background or minimized windows, never steals focus, optional desktop notifications, adjustable font size, Traditional Chinese / English UI.
-
-**Install:** download the zip from [Releases](../../releases/latest) and unzip it → open `chrome://extensions` → enable **Developer mode** → **Load unpacked** → select the folder that contains `manifest.json`. Then log into Twitch, set your target streamer and category slug (the part after `twitch.tv/directory/category/`), save, and press the start button.
-
-**⚠️ Warning:** to claim rewards reliably, this extension calls Twitch's undocumented internal GQL API and passes its anti-bot integrity check. This may violate the [Twitch Terms of Service](https://www.twitch.tv/p/en/legal/terms-of-service/) and could lead to account restrictions. **Use at your own risk.**
-
-**Privacy:** all settings and logs stay in your browser. Your Twitch credentials are only sent to Twitch's own servers. No analytics.
-
-**☕ Support:** if this saves you time, consider buying me a coffee at **[ko-fi.com/sagiriben](https://ko-fi.com/sagiriben)**. Thank you!

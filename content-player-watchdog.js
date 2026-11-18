@@ -19,7 +19,7 @@
 //   （用完 10 分鐘 4 次額度後，冷卻 10 → 20 → 40 分鐘…上限 2 小時），偵測到恢復正常播放即歸零。
 (function () {
   function t(key, subs) {
-    return chrome.i18n.getMessage(key, subs) || key;
+    return globalThis.TasI18n ? TasI18n.t(key, subs) : chrome.i18n.getMessage(key, subs) || key;
   }
 
   const CHECK_INTERVAL_MS = 5000;
